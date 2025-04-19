@@ -22,7 +22,7 @@ This project detects cyberbullying in Bhojpuri user-generated content using Logi
 
 ## 🚀 Run Locally
 ```bash
-git clone https://github.com/rajputpritesh1/cyberbullying-detection-bhojpuri.git
-cd cyberbullying-detection-bhojpuri
+git clone https://github.com/rajputpritesh1/cyberguard.git
+cd cyberguard
 pip install -r requirements.txt
 python app.py
