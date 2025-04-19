@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block title %}CyberGuard: Text Analysis{% endblock %}
+
+{% block additional_styles %}
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3a0ca3;
+    --accent-color: #4cc9f0;
+    --danger-color: #ef233c;
+    --success-color: #2ecc71;
+    --dark-color: #2b2d42;
+    --light-color: #f8f9fa;
+}
+
+body {
+    background: linear-gradient(135deg, #f6f9fc, #f1f4f8);
+    color: var(--dark-color);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+}
+
+.detection-card {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    background: white;
+    margin-top: 2rem;
+}
+
+.detection-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 2rem;
+    color: white;
+}
+
+textarea {
+    resize: none;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
+}
+
+.btn-detect {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-detect:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+}
+
+.loading-spinner {
+    display: none;
+    width: 2rem;
+    height: 2rem;
+    border: 0.25em solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.back-button {
+    color: var(--primary-color);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    color: var(--secondary-color);
+    transform: translateX(-5px);
+}
+
+.result-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.result-icon i {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <a href="/" class="back-button mb-4">
+        <i class="fas fa-arrow-left me-2"></i> Back to Home
+    </a>
+    
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="detection-card">
+                <div class="detection-header text-center">
+                    <h2 class="mb-0"><i class="fas fa-shield-alt me-2"></i>CyberGuard</h2>
+                    <p class="mb-0 opacity-75">Advanced Cyberbullying Detection System</p>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" id="detectionForm">
+                        <div class="mb-4">
+                            <label for="textInput" class="form-label fw-bold mb-3">Enter Text to Analyze (Bhojpuri):</label>
+                            <textarea class="form-control" name="text" id="textInput" rows="5" placeholder="Type or paste the text you want to analyze..." required>{{ text_input }}</textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-detect text-white" id="detectBtn">
+                                <span id="btnText">Analyze Text</span>
+                                <span class="loading-spinner" id="spinner"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Result Modal -->
+<div class="modal fade" id="resultModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-4 text-center">
+                {% if prediction %}
+                    {% if prediction == 'bully' %}
+                        <div class="result-icon text-danger">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h4 class="mb-3">Potential Cyberbullying Detected</h4>
+                        <span class="badge bg-danger mb-3">HIGH RISK</span>
+                        <p class="mb-4">Our analysis indicates this content may contain harmful or offensive language that could be considered cyberbullying.</p>
+                        <div class="alert alert-warning small">
+                            <i class="fas fa-info-circle me-2"></i>Consider reviewing community guidelines before posting.
+                        </div>
+                    {% else %}
+                        <div class="result-icon text-success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h4 class="mb-3">No Cyberbullying Detected</h4>
+                        <span class="badge bg-success mb-3">CLEAN</span>
+                        <p class="mb-4">This content appears respectful and appropriate based on our analysis.</p>
+                        <div class="alert alert-info small">
+                            <i class="fas fa-thumbs-up me-2"></i>Keep up the positive online interactions!
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="modal-footer border-0 justify-content-center">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="resetForm()">Analyze Another</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- Main JavaScript -->
+<script>
+    // Show modal if there's a prediction
+    document.addEventListener('DOMContentLoaded', function() {
+        {% if prediction %}
+            var resultModal = new bootstrap.Modal(document.getElementById('resultModal'));
+            resultModal.show();
+        {% endif %}
+    });
+    
+    // Loading spinner during form submission
+    document.getElementById('detectionForm').addEventListener('submit', function() {
+        const btn = document.getElementById('detectBtn');
+        const spinner = document.getElementById('spinner');
+        const btnText = document.getElementById('btnText');
+        
+        btn.disabled = true;
+        btnText.textContent = 'Analyzing...';
+        spinner.style.display = 'inline-block';
+    });
+    
+    function resetForm() {
+        document.getElementById('textInput').value = '';
+        document.getElementById('detectionForm').reset();
+        document.getElementById('detectBtn').disabled = false;
+        document.getElementById('btnText').textContent = 'Analyze Text';
+        document.getElementById('spinner').style.display = 'none';
+        
+        const modal = bootstrap.Modal.getInstance(document.getElementById('resultModal'));
+        modal.hide();
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,573 @@
+{% extends "base.html" %}
+
+{% block title %}Use Cases - CyberGuard: Enterprise Cyberbullying Detection{% endblock %}
+
+{% block additional_styles %}
+/* Use Cases Page Styles */
+.use-cases-hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    padding: 8rem 0 6rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.use-cases-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
+    opacity: 0.1;
+}
+
+.use-cases-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    display: inline-block;
+}
+
+.use-cases-hero h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--text-light);
+    border-radius: 2px;
+}
+
+.use-cases-hero p {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    opacity: 0.9;
+    line-height: 1.8;
+}
+
+/* Use Case Categories */
+.use-case-categories {
+    padding: 6rem 0;
+    background-color: var(--gray-100);
+}
+
+.category-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: var(--primary-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.category-card:hover::before {
+    transform: scaleX(1);
+}
+
+.category-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-color);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: white;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+}
+
+.category-card:hover .category-icon {
+    transform: rotate(10deg);
+}
+
+.category-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.category-description {
+    font-size: 1.1rem;
+    color: var(--gray-400);
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+.category-link {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.category-link i {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.category-link:hover {
+    color: var(--secondary-color);
+}
+
+.category-link:hover i {
+    transform: translateX(5px);
+}
+
+/* Detailed Use Cases */
+.detailed-use-cases {
+    padding: 6rem 0;
+    background-color: white;
+}
+
+.use-case {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5rem;
+    position: relative;
+}
+
+.use-case:last-child {
+    margin-bottom: 0;
+}
+
+.use-case-image {
+    flex: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.use-case-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(79, 70, 229, 0.2));
+    z-index: 1;
+}
+
+.use-case-image img {
+    width: 100%;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.use-case:hover .use-case-image img {
+    transform: scale(1.05);
+}
+
+.use-case-content {
+    flex: 1;
+    padding: 2rem;
+}
+
+.use-case-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+    position: relative;
+    display: inline-block;
+}
+
+.use-case-title::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+.use-case-description {
+    font-size: 1.1rem;
+    color: var(--gray-400);
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+.use-case-features {
+    margin-bottom: 1.5rem;
+}
+
+.use-case-feature {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+}
+
+.use-case-feature i {
+    color: var(--primary-color);
+    margin-right: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.use-case-feature-text {
+    font-size: 1rem;
+    color: var(--gray-400);
+}
+
+.use-case-cta {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.use-case-cta:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Use Cases CTA */
+.use-cases-cta {
+    text-align: center;
+    padding: 6rem 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.use-cases-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
+    opacity: 0.1;
+}
+
+.use-cases-cta h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    display: inline-block;
+}
+
+.use-cases-cta h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--text-light);
+    border-radius: 2px;
+}
+
+.use-cases-cta p {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+    opacity: 0.9;
+    line-height: 1.8;
+}
+
+.btn-use-cases-cta {
+    padding: 1.25rem 3rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background: white;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-use-cases-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.btn-use-cases-cta:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.btn-use-cases-cta:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+@media (max-width: 991.98px) {
+    .use-cases-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .use-case {
+        flex-direction: column;
+    }
+    
+    .use-case-image {
+        margin-bottom: 2rem;
+    }
+}
+{% endblock %}
+
+{% block content %}
+<!-- Use Cases Hero Section -->
+<section class="use-cases-hero">
+    <div class="container">
+        <h1>CyberGuard Use Cases</h1>
+        <p>Discover how organizations are leveraging our technology to combat cyberbullying across different sectors</p>
+    </div>
+</section>
+
+<!-- Use Case Categories -->
+<section class="use-case-categories">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <h2>Key Application Areas</h2>
+            <p>Explore the diverse ways CyberGuard can be implemented to protect your organization</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <h3 class="category-title">Educational Institutions</h3>
+                    <p class="category-description">Protect students from cyberbullying on school platforms, social media, and messaging apps with automated monitoring and alerts.</p>
+                    <a href="#education" class="category-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="category-title">Corporate Environments</h3>
+                    <p class="category-description">Maintain a safe workplace by detecting harassment and inappropriate content in internal communications and collaboration tools.</p>
+                    <a href="#corporate" class="category-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="category-title">Social Media Platforms</h3>
+                    <p class="category-description">Automatically flag and moderate cyberbullying content across user-generated platforms to create safer online communities.</p>
+                    <a href="#social-media" class="category-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="category-title">Government Agencies</h3>
+                    <p class="category-description">Monitor public forums and social media for cyberbullying trends and protect citizens from online harassment campaigns.</p>
+                    <a href="#government" class="category-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 class="category-title">Healthcare Providers</h3>
+                    <p class="category-description">Protect patients and healthcare professionals from cyberbullying in online health communities and telemedicine platforms.</p>
+                    <a href="#healthcare" class="category-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3 class="category-title">Gaming Communities</h3>
+                    <p class="category-description">Create safer gaming environments by detecting and moderating toxic behavior in chat, forums, and in-game communications.</p>
+                    <a href="#gaming" class="category-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Detailed Use Cases -->
+<section class="detailed-use-cases">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <h2>Detailed Use Cases</h2>
+            <p>Explore in-depth how CyberGuard is implemented across different industries</p>
+        </div>
+        
+        <!-- Education Use Case -->
+        <div class="use-case" id="education">
+            <div class="use-case-image">
+                <img src="https://illustrations.popsy.co/white/education.svg" alt="Educational Institutions Use Case">
+            </div>
+            <div class="use-case-content">
+                <h3 class="use-case-title">Educational Institutions</h3>
+                <p class="use-case-description">Schools, colleges, and universities face unique challenges in protecting students from cyberbullying. CyberGuard helps educational institutions create safer digital environments for learning and social interaction.</p>
+                
+                <div class="use-case-features">
+                    <div class="use-case-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="use-case-feature-text">Monitor school-owned platforms and social media for cyberbullying content</span>
+                    </div>
+                    <div class="use-case-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="use-case-feature-text">Automatically flag concerning content for review by counselors and administrators</span>
+                    </div>
+                    <div class="use-case-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="use-case-feature-text">Generate reports on cyberbullying trends to inform prevention programs</span>
+                    </div>
+                    <div class="use-case-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="use-case-feature-text">Integrate with learning management systems and student communication platforms</span>
+                    </div>
+                </div>
+                
+                <a href="/contact" class="use-case-cta">Request Education Solution</a>
+            </div>
+        </div>
+        
+        <!-- Corporate Use Case -->
+        <div class="use-case" id="corporate">
+            <div class="use-case-content">
+                <h3 class="use-case-title">Corporate Environments</h3>
+                <p class="use-case-description">Workplace harassment can occur through various digital channels. CyberGuard helps organizations maintain a safe and inclusive workplace by detecting inappropriate content in internal communications.</p>
+                
+                <div class="use-case-features">
+                    <div class="use-case-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="use-case-feature-text">Monitor internal messaging platforms, email, and collaboration tools</span>
+                    </div>
+                    <div class="use-case-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="use-case-feature-text">Detect patterns of harassment or inappropriate behavior across communication channels</span>
+                    </div>
+                    <div class="use-case-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="use-case-feature-text">Generate compliance reports for HR and legal departments</span>
+                    </div>
+                    <div class="use-case-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="use-case-feature-text">Integrate with existing security and compliance frameworks</span>
+                    </div>
+                </div>
+                
+                <a href="/contact" class="use-case-cta">Request Corporate Solution</a>
+            </div>
+            <div class="use-case-image">
+                <img src="https://illustrations.popsy.co/white/corporate.svg" alt="Corporate Environments Use Case">
+            </div>
+        </div>
+        
+        <!-- Social Media Use Case -->
+        <div class="use-case" id="social-media">
+            <div class="use-case-image">
+                <img src="https://illustrations.popsy.co/white/social-media.svg" alt="Social Media Platforms Use Case">
+            </div>
+            <div class="use-case-content">
+                <h3 class="use-case-title">Social Media Platforms</h3>
+                <p class="use-case-description">Social media platforms face the challenge of moderating vast amounts of user-generated content. CyberGuard helps platforms automatically detect and flag cyberbullying content for review.</p>
+                
+                <div class="use-case-features">
+                    <div class="use-case-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="use-case-feature-text">Process and analyze user comments, messages, and posts in real-time</span>
+                    </div>
+                    <div class="use-case-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="use-case-feature-text">Flag potentially harmful content for human moderators to review</span>
+                    </div>
+                    <div class="use-case-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="use-case-feature-text">Identify patterns of coordinated harassment across multiple accounts</span>
+                    </div>
+                    <div class="use-case-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="use-case-feature-text">Generate analytics on cyberbullying trends to inform platform policies</span>
+                    </div>
+                </div>
+                
+                <a href="/contact" class="use-case-cta">Request Social Media Solution</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Use Cases CTA -->
+<section class="use-cases-cta">
+    <div class="container">
+        <h2>Ready to Implement CyberGuard?</h2>
+        <p>Contact our team to discuss how we can customize our solution for your specific use case.</p>
+        <a href="/contact" class="btn btn-use-cases-cta">Schedule a Consultation</a>
+    </div>
+</section>
+{% endblock %} 

@@ -1,0 +1,661 @@
+{% extends "base.html" %}
+
+{% block title %}Testimonials - CyberGuard: Enterprise Cyberbullying Detection{% endblock %}
+
+{% block additional_styles %}
+/* Testimonials Page Styles */
+.testimonials-hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    padding: 8rem 0 6rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonials-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
+    opacity: 0.1;
+}
+
+.testimonials-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    display: inline-block;
+}
+
+.testimonials-hero h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--text-light);
+    border-radius: 2px;
+}
+
+.testimonials-hero p {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    opacity: 0.9;
+    line-height: 1.8;
+}
+
+/* Featured Testimonials */
+.featured-testimonials {
+    padding: 6rem 0;
+    background-color: var(--gray-100);
+}
+
+.testimonial-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    font-size: 5rem;
+    font-family: serif;
+    color: var(--primary-color);
+    opacity: 0.1;
+    line-height: 1;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.testimonial-content {
+    font-size: 1.1rem;
+    color: var(--gray-400);
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+}
+
+.testimonial-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 1rem;
+    border: 3px solid var(--primary-color);
+}
+
+.testimonial-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.testimonial-info {
+    flex: 1;
+}
+
+.testimonial-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.25rem;
+}
+
+.testimonial-position {
+    font-size: 0.9rem;
+    color: var(--gray-400);
+}
+
+.testimonial-rating {
+    color: #fbbf24;
+    margin-top: 0.5rem;
+}
+
+/* Testimonial Categories */
+.testimonial-categories {
+    padding: 6rem 0;
+    background-color: white;
+}
+
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.category-tab {
+    padding: 0.75rem 1.5rem;
+    margin: 0.5rem;
+    background: var(--gray-100);
+    border-radius: 8px;
+    color: var(--gray-400);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-tab:hover, .category-tab.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+/* Video Testimonials */
+.video-testimonials {
+    padding: 6rem 0;
+    background-color: var(--gray-100);
+}
+
+.video-testimonial {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.video-testimonial:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.video-info {
+    padding: 1.5rem;
+}
+
+.video-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+}
+
+.video-author {
+    font-size: 0.9rem;
+    color: var(--gray-400);
+}
+
+/* Testimonial Stats */
+.testimonial-stats {
+    padding: 6rem 0;
+    background-color: white;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 2rem;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    color: var(--gray-400);
+    font-weight: 600;
+}
+
+/* Testimonials CTA */
+.testimonials-cta {
+    text-align: center;
+    padding: 6rem 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonials-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
+    opacity: 0.1;
+}
+
+.testimonials-cta h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    display: inline-block;
+}
+
+.testimonials-cta h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--text-light);
+    border-radius: 2px;
+}
+
+.testimonials-cta p {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+    opacity: 0.9;
+    line-height: 1.8;
+}
+
+.btn-testimonials-cta {
+    padding: 1.25rem 3rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background: white;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-testimonials-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.btn-testimonials-cta:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.btn-testimonials-cta:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+@media (max-width: 991.98px) {
+    .testimonials-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .testimonial-grid {
+        grid-template-columns: 1fr;
+    }
+}
+{% endblock %}
+
+{% block content %}
+<!-- Testimonials Hero Section -->
+<section class="testimonials-hero">
+    <div class="container">
+        <h1>Client Testimonials</h1>
+        <p>Hear from organizations that have successfully implemented CyberGuard to protect their communities</p>
+    </div>
+</section>
+
+<!-- Featured Testimonials -->
+<section class="featured-testimonials">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <h2>Featured Success Stories</h2>
+            <p>Discover how CyberGuard has transformed online safety for our clients</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="testimonial-card">
+                    <p class="testimonial-content">"CyberGuard has revolutionized how we monitor student interactions on our learning platform. The system's accuracy in detecting cyberbullying content has been impressive, and the automated alerts have allowed our counselors to intervene quickly in potentially harmful situations."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson">
+                        </div>
+                        <div class="testimonial-info">
+                            <h4 class="testimonial-name">Sarah Johnson</h4>
+                            <p class="testimonial-position">Director of Student Services, University of Technology</p>
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="testimonial-card">
+                    <p class="testimonial-content">"As a social media platform with millions of users, content moderation has always been a challenge. CyberGuard's AI-powered detection system has significantly improved our ability to identify and address cyberbullying content, creating a safer environment for our community."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael Chen">
+                        </div>
+                        <div class="testimonial-info">
+                            <h4 class="testimonial-name">Michael Chen</h4>
+                            <p class="testimonial-position">Head of Content Moderation, SocialConnect</p>
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="testimonial-card">
+                    <p class="testimonial-content">"Implementing CyberGuard in our corporate environment has been transformative. The system's ability to detect subtle forms of harassment in internal communications has helped us maintain a respectful workplace culture and address issues before they escalate."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya Patel">
+                        </div>
+                        <div class="testimonial-info">
+                            <h4 class="testimonial-name">Priya Patel</h4>
+                            <p class="testimonial-position">HR Director, Global Innovations Inc.</p>
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial Categories -->
+<section class="testimonial-categories">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <h2>Client Testimonials by Industry</h2>
+            <p>Explore success stories from organizations across different sectors</p>
+        </div>
+        
+        <div class="category-tabs">
+            <div class="category-tab active">All Industries</div>
+            <div class="category-tab">Education</div>
+            <div class="category-tab">Social Media</div>
+            <div class="category-tab">Corporate</div>
+            <div class="category-tab">Government</div>
+            <div class="category-tab">Healthcare</div>
+        </div>
+        
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-content">"CyberGuard has been instrumental in helping us monitor and moderate our online health community. The system's ability to detect cyberbullying in medical discussions has created a more supportive environment for patients seeking advice and information."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Dr. James Wilson">
+                    </div>
+                    <div class="testimonial-info">
+                        <h4 class="testimonial-name">Dr. James Wilson</h4>
+                        <p class="testimonial-position">Medical Director, HealthConnect</p>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-content">"As a government agency responsible for youth protection, we needed a robust solution to monitor online threats. CyberGuard's advanced detection capabilities have significantly improved our ability to identify and address cyberbullying incidents affecting young people in our jurisdiction."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Maria Rodriguez">
+                    </div>
+                    <div class="testimonial-info">
+                        <h4 class="testimonial-name">Maria Rodriguez</h4>
+                        <p class="testimonial-position">Director of Digital Safety, Youth Protection Agency</p>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-content">"Our gaming platform was struggling with toxic behavior in chat rooms. Since implementing CyberGuard, we've seen a 70% reduction in reported harassment incidents. The system's real-time detection has created a more welcoming environment for all our players."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Alex Thompson">
+                    </div>
+                    <div class="testimonial-info">
+                        <h4 class="testimonial-name">Alex Thompson</h4>
+                        <p class="testimonial-position">Community Manager, GameVerse</p>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-content">"The integration of CyberGuard with our learning management system has been seamless. Our teachers now have powerful tools to monitor student interactions, and the automated reports have helped us identify patterns of cyberbullying that we can address through targeted interventions."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/56.jpg" alt="Emily Parker">
+                    </div>
+                    <div class="testimonial-info">
+                        <h4 class="testimonial-name">Emily Parker</h4>
+                        <p class="testimonial-position">Technology Director, Riverside School District</p>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-content">"CyberGuard has transformed how we handle workplace communications. The system's ability to detect subtle forms of harassment has helped us maintain a respectful environment and address issues proactively. The detailed reports have also been valuable for our compliance efforts."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="David Kim">
+                    </div>
+                    <div class="testimonial-info">
+                        <h4 class="testimonial-name">David Kim</h4>
+                        <p class="testimonial-position">Chief Compliance Officer, TechCorp International</p>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-content">"As a healthcare provider, we needed a solution that could protect our patients and staff in online forums. CyberGuard's specialized detection for medical contexts has been invaluable. The system understands the unique language of healthcare discussions while still identifying harmful content."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/23.jpg" alt="Dr. Lisa Chen">
+                    </div>
+                    <div class="testimonial-info">
+                        <h4 class="testimonial-name">Dr. Lisa Chen</h4>
+                        <p class="testimonial-position">Chief Medical Officer, HealthFirst Network</p>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Video Testimonials -->
+<section class="video-testimonials">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <h2>Video Testimonials</h2>
+            <p>Hear directly from our clients about their experience with CyberGuard</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="video-testimonial">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="CyberGuard Testimonial - Education Sector" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Transforming Student Safety at University of Technology</h3>
+                        <p class="video-author">Sarah Johnson, Director of Student Services</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="video-testimonial">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="CyberGuard Testimonial - Social Media Platform" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Revolutionizing Content Moderation at SocialConnect</h3>
+                        <p class="video-author">Michael Chen, Head of Content Moderation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial Stats -->
+<section class="testimonial-stats">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Client Satisfaction</div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-number">75%</div>
+                    <div class="stat-label">Reduction in Cyberbullying Incidents</div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Organizations Protected</div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-number">10M+</div>
+                    <div class="stat-label">Users Protected Daily</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials CTA -->
+<section class="testimonials-cta">
+    <div class="container">
+        <h2>Join Our Satisfied Clients</h2>
+        <p>Experience the same success in combating cyberbullying that our clients have achieved with CyberGuard.</p>
+        <a href="/contact" class="btn btn-testimonials-cta">Schedule a Demo</a>
+    </div>
+</section>
+{% endblock %} 

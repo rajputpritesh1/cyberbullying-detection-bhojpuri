@@ -1,0 +1,577 @@
+{% extends "base.html" %}
+
+{% block title %}How It Works - CyberGuard: Enterprise Cyberbullying Detection{% endblock %}
+
+{% block additional_styles %}
+/* How It Works Page Styles */
+.how-it-works-hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    padding: 8rem 0 6rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.how-it-works-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
+    opacity: 0.1;
+}
+
+.how-it-works-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    display: inline-block;
+}
+
+.how-it-works-hero h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--text-light);
+    border-radius: 2px;
+}
+
+.how-it-works-hero p {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    opacity: 0.9;
+    line-height: 1.8;
+}
+
+/* Process Steps */
+.process-steps {
+    padding: 6rem 0;
+    background-color: var(--gray-100);
+    position: relative;
+}
+
+.process-steps::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+}
+
+.process-step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+.process-step:last-child {
+    margin-bottom: 0;
+}
+
+.process-step-number {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-right: 2rem;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+}
+
+.process-step-content {
+    flex: 1;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.process-step-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.process-step-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+    position: relative;
+    display: inline-block;
+}
+
+.process-step-title::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+.process-step-description {
+    font-size: 1.1rem;
+    color: var(--gray-400);
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+.process-step-image {
+    margin-top: 1.5rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.process-step-image img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.process-step-image:hover img {
+    transform: scale(1.05);
+}
+
+/* Process Flow */
+.process-flow {
+    padding: 6rem 0;
+    background-color: white;
+}
+
+.flow-diagram {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.flow-step {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.flow-step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.flow-step-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+}
+
+.flow-step-title i {
+    margin-right: 1rem;
+    color: var(--primary-color);
+    font-size: 1.75rem;
+}
+
+.flow-step-description {
+    font-size: 1.1rem;
+    color: var(--gray-400);
+    line-height: 1.8;
+}
+
+.flow-arrow {
+    text-align: center;
+    margin: 1rem 0;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+/* Technology Stack */
+.tech-stack {
+    padding: 6rem 0;
+    background-color: var(--gray-100);
+}
+
+.tech-item {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.tech-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.tech-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-color);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: white;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+}
+
+.tech-item:hover .tech-icon {
+    transform: rotate(10deg);
+}
+
+.tech-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.tech-description {
+    font-size: 1rem;
+    color: var(--gray-400);
+    line-height: 1.6;
+}
+
+/* How It Works CTA */
+.how-it-works-cta {
+    text-align: center;
+    padding: 6rem 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.how-it-works-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
+    opacity: 0.1;
+}
+
+.how-it-works-cta h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    display: inline-block;
+}
+
+.how-it-works-cta h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--text-light);
+    border-radius: 2px;
+}
+
+.how-it-works-cta p {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+    opacity: 0.9;
+    line-height: 1.8;
+}
+
+.btn-how-it-works-cta {
+    padding: 1.25rem 3rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background: white;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-how-it-works-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.btn-how-it-works-cta:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.btn-how-it-works-cta:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+@media (max-width: 991.98px) {
+    .how-it-works-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .process-step {
+        flex-direction: column;
+    }
+    
+    .process-step-number {
+        margin-bottom: 1.5rem;
+    }
+}
+{% endblock %}
+
+{% block content %}
+<!-- How It Works Hero Section -->
+<section class="how-it-works-hero">
+    <div class="container">
+        <h1>How CyberGuard Works</h1>
+        <p>Discover the technology and process behind our advanced cyberbullying detection system</p>
+    </div>
+</section>
+
+<!-- Process Steps -->
+<section class="process-steps">
+    <div class="container">
+        <div class="process-step">
+            <div class="process-step-number">1</div>
+            <div class="process-step-content">
+                <h3 class="process-step-title">Text Input & Preprocessing</h3>
+                <p class="process-step-description">The process begins when text is submitted to our system. Our preprocessing pipeline cleans and standardizes the input, removing unnecessary elements while preserving the essential content for analysis.</p>
+                <div class="process-step-image">
+                    <img src="https://illustrations.popsy.co/white/data-processing.svg" alt="Text Input & Preprocessing">
+                </div>
+            </div>
+        </div>
+        
+        <div class="process-step">
+            <div class="process-step-number">2</div>
+            <div class="process-step-content">
+                <h3 class="process-step-title">Language Detection & Tokenization</h3>
+                <p class="process-step-description">Our system identifies the language of the text and tokenizes it into smaller units for analysis. For Bhojpuri text, we use specialized tokenization techniques that understand the unique structure of the language.</p>
+                <div class="process-step-image">
+                    <img src="https://illustrations.popsy.co/white/language.svg" alt="Language Detection & Tokenization">
+                </div>
+            </div>
+        </div>
+        
+        <div class="process-step">
+            <div class="process-step-number">3</div>
+            <div class="process-step-content">
+                <h3 class="process-step-title">Feature Extraction</h3>
+                <p class="process-step-description">We extract linguistic features from the text, including word embeddings, sentiment analysis, and contextual patterns. These features are crucial for identifying potential cyberbullying content.</p>
+                <div class="process-step-image">
+                    <img src="https://illustrations.popsy.co/white/data-extraction.svg" alt="Feature Extraction">
+                </div>
+            </div>
+        </div>
+        
+        <div class="process-step">
+            <div class="process-step-number">4</div>
+            <div class="process-step-content">
+                <h3 class="process-step-title">AI Model Analysis</h3>
+                <p class="process-step-description">Our trained machine learning model analyzes the extracted features to identify patterns associated with cyberbullying. The model has been specifically trained on Bhojpuri language data to ensure high accuracy.</p>
+                <div class="process-step-image">
+                    <img src="https://illustrations.popsy.co/white/artificial-intelligence.svg" alt="AI Model Analysis">
+                </div>
+            </div>
+        </div>
+        
+        <div class="process-step">
+            <div class="process-step-number">5</div>
+            <div class="process-step-content">
+                <h3 class="process-step-title">Result Generation</h3>
+                <p class="process-step-description">The system generates a detailed analysis report, including the probability of cyberbullying content, specific flagged elements, and contextual information to help understand the detection results.</p>
+                <div class="process-step-image">
+                    <img src="https://illustrations.popsy.co/white/data-report.svg" alt="Result Generation">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Process Flow -->
+<section class="process-flow">
+    <div class="container">
+        <div class="section-title">
+            <h2>The Complete Detection Flow</h2>
+            <p>A comprehensive overview of how text flows through our detection system</p>
+        </div>
+        
+        <div class="flow-diagram">
+            <div class="flow-step">
+                <h3 class="flow-step-title"><i class="fas fa-upload"></i> Text Submission</h3>
+                <p class="flow-step-description">Users submit text through our web interface or API. The system accepts various formats including plain text, HTML, and structured data.</p>
+            </div>
+            
+            <div class="flow-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            
+            <div class="flow-step">
+                <h3 class="flow-step-title"><i class="fas fa-magic"></i> Preprocessing</h3>
+                <p class="flow-step-description">Text is cleaned, normalized, and prepared for analysis. This includes removing special characters, standardizing formatting, and handling different text encodings.</p>
+            </div>
+            
+            <div class="flow-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            
+            <div class="flow-step">
+                <h3 class="flow-step-title"><i class="fas fa-language"></i> Language Processing</h3>
+                <p class="flow-step-description">Our system identifies the language and applies appropriate processing techniques. For Bhojpuri text, we use specialized NLP models trained on regional language patterns.</p>
+            </div>
+            
+            <div class="flow-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            
+            <div class="flow-step">
+                <h3 class="flow-step-title"><i class="fas fa-brain"></i> AI Analysis</h3>
+                <p class="flow-step-description">The preprocessed text is analyzed by our machine learning model, which has been trained on thousands of Bhojpuri text samples to identify cyberbullying patterns.</p>
+            </div>
+            
+            <div class="flow-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            
+            <div class="flow-step">
+                <h3 class="flow-step-title"><i class="fas fa-chart-bar"></i> Result Generation</h3>
+                <p class="flow-step-description">The system generates a detailed report with the detection results, confidence scores, and specific flagged content for review.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Technology Stack -->
+<section class="tech-stack">
+    <div class="container">
+        <div class="section-title">
+            <h2>Our Technology Stack</h2>
+            <p>The powerful technologies behind CyberGuard's detection system</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="tech-title">Machine Learning</h3>
+                    <p class="tech-description">Advanced algorithms trained on extensive Bhojpuri language datasets to identify cyberbullying patterns with high accuracy.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="tech-title">Natural Language Processing</h3>
+                    <p class="tech-description">Specialized NLP techniques for understanding Bhojpuri language structure, context, and cultural nuances.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 class="tech-title">Cloud Infrastructure</h3>
+                    <p class="tech-description">Scalable cloud-based architecture ensuring fast processing times and high availability for enterprise users.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="tech-title">Security Framework</h3>
+                    <p class="tech-description">Enterprise-grade security measures including encryption, access controls, and compliance with data protection standards.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="tech-title">API Integration</h3>
+                    <p class="tech-description">RESTful API architecture allowing seamless integration with existing systems and workflows.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="tech-title">Analytics Dashboard</h3>
+                    <p class="tech-description">Comprehensive analytics tools providing insights into detection patterns, accuracy metrics, and system performance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works CTA -->
+<section class="how-it-works-cta">
+    <div class="container">
+        <h2>Ready to Experience Our Technology?</h2>
+        <p>Try our cyberbullying detection system and see the power of AI in action.</p>
+        <a href="/detect" class="btn btn-how-it-works-cta">Start Free Analysis</a>
+    </div>
+</section>
+{% endblock %} 

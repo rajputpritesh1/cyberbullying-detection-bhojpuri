@@ -1,0 +1,575 @@
+{% extends "base.html" %}
+
+{% block title %}Features - CyberGuard: Enterprise Cyberbullying Detection{% endblock %}
+
+{% block additional_styles %}
+/* Features Page Styles */
+.features-hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    padding: 8rem 0 6rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.features-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
+    opacity: 0.1;
+}
+
+.features-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    display: inline-block;
+}
+
+.features-hero h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--text-light);
+    border-radius: 2px;
+}
+
+.features-hero p {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    opacity: 0.9;
+    line-height: 1.8;
+}
+
+/* Feature Cards Grid */
+.feature-cards {
+    padding: 6rem 0;
+    background-color: var(--gray-100);
+}
+
+.feature-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    height: 100%;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: var(--primary-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.feature-card:hover::before {
+    transform: scaleX(1);
+}
+
+.feature-card-icon {
+    width: 70px;
+    height: 70px;
+    background: var(--primary-color);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: white;
+    font-size: 1.75rem;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-card-icon {
+    transform: rotate(10deg);
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.feature-card p {
+    color: var(--gray-400);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.feature-card-link {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.feature-card-link i {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.feature-card-link:hover i {
+    transform: translateX(5px);
+}
+
+/* Feature Detail Sections */
+.feature-detail-section {
+    padding: 6rem 0;
+    position: relative;
+}
+
+.feature-detail-section:nth-child(even) {
+    background-color: var(--gray-100);
+}
+
+.feature-detail-content {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.feature-detail-text {
+    flex: 1;
+}
+
+.feature-detail-image {
+    flex: 1;
+    text-align: center;
+    position: relative;
+}
+
+.feature-detail-image::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: 20px;
+    bottom: 20px;
+    background: var(--primary-color);
+    opacity: 0.05;
+    border-radius: 12px;
+    z-index: -1;
+}
+
+.feature-detail-image img {
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.feature-detail-image img:hover {
+    transform: translateY(-5px);
+}
+
+.feature-detail-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+    line-height: 1.2;
+    position: relative;
+    display: inline-block;
+}
+
+.feature-detail-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+.feature-detail-description {
+    font-size: 1.1rem;
+    color: var(--gray-400);
+    margin-bottom: 2rem;
+    line-height: 1.8;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.25rem;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.feature-list li:hover {
+    transform: translateX(5px);
+}
+
+.feature-list li i {
+    color: var(--primary-color);
+    margin-right: 1rem;
+    margin-top: 0.25rem;
+    font-size: 1.25rem;
+}
+
+/* Feature Comparison */
+.feature-comparison {
+    padding: 6rem 0;
+    background-color: white;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-title h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+.section-title p {
+    font-size: 1.1rem;
+    color: var(--gray-400);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.comparison-table th {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.comparison-table tr:last-child td {
+    border-bottom: none;
+}
+
+.comparison-table tr:nth-child(even) {
+    background-color: var(--gray-100);
+}
+
+.comparison-table .check {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+}
+
+.comparison-table .cross {
+    color: #ef4444;
+    font-size: 1.25rem;
+}
+
+/* Feature CTA */
+.feature-cta {
+    text-align: center;
+    padding: 6rem 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
+    opacity: 0.1;
+}
+
+.feature-cta h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    display: inline-block;
+}
+
+.feature-cta h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--text-light);
+    border-radius: 2px;
+}
+
+.feature-cta p {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+    opacity: 0.9;
+    line-height: 1.8;
+}
+
+.btn-feature-cta {
+    padding: 1.25rem 3rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background: white;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-feature-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.btn-feature-cta:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.btn-feature-cta:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+@media (max-width: 991.98px) {
+    .feature-detail-content {
+        flex-direction: column;
+    }
+    
+    .feature-detail-image {
+        order: -1;
+        margin-bottom: 3rem;
+    }
+    
+    .features-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .feature-detail-title {
+        font-size: 2rem;
+    }
+    
+    .feature-cta h2 {
+        font-size: 2.5rem;
+    }
+}
+{% endblock %}
+
+{% block content %}
+<!-- Features Hero Section -->
+<section class="features-hero">
+    <div class="container">
+        <h1>Enterprise-Grade Features</h1>
+        <p>Discover how CyberGuard's advanced AI technology helps organizations maintain safe and respectful online environments</p>
+    </div>
+</section>
+
+<!-- Feature Cards Grid -->
+<section class="feature-cards">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Advanced AI Detection</h3>
+                    <p>State-of-the-art machine learning algorithms specifically trained to identify cyberbullying content in Bhojpuri text.</p>
+                    <a href="#ai-detection" class="feature-card-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Real-Time Analysis</h3>
+                    <p>Lightning-fast text analysis with our high-performance system designed for enterprise-scale operations.</p>
+                    <a href="#real-time" class="feature-card-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Enterprise Security</h3>
+                    <p>Maintain the highest standards of security and compliance with our enterprise-grade features.</p>
+                    <a href="#security" class="feature-card-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AI-Powered Detection Feature -->
+<section id="ai-detection" class="feature-detail-section">
+    <div class="container">
+        <div class="feature-detail-content">
+            <div class="feature-detail-text">
+                <h2 class="feature-detail-title">Advanced AI Detection</h2>
+                <p class="feature-detail-description">Our state-of-the-art machine learning algorithms are specifically trained to identify cyberbullying content in Bhojpuri text with exceptional accuracy and reliability.</p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> <strong>Language-Specific Training:</strong> Models trained exclusively on Bhojpuri language patterns and cultural context</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Contextual Understanding:</strong> Advanced NLP techniques for analyzing text within its full context</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Continuous Learning:</strong> Self-improving system that adapts to new patterns and threats</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Customizable Sensitivity:</strong> Fine-tune detection thresholds based on your organization's needs</li>
+                </ul>
+                <a href="/detect" class="btn btn-primary btn-lg">Experience It Now</a>
+            </div>
+            <div class="feature-detail-image">
+                <img src="/static/hero.png" alt="AI-Powered Detection">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Feature Comparison -->
+<section class="feature-comparison">
+    <div class="container">
+        <div class="section-title">
+            <h2>Industry-Leading Features</h2>
+            <p>See how CyberGuard stands out from other solutions in the market</p>
+        </div>
+        <div class="table-responsive">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>CyberGuard</th>
+                        <th>Other Solutions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bhojpuri Language Support</td>
+                        <td><i class="fas fa-check check"></i></td>
+                        <td><i class="fas fa-times cross"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Real-Time Analysis</td>
+                        <td><i class="fas fa-check check"></i></td>
+                        <td><i class="fas fa-check check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>99.9% Accuracy</td>
+                        <td><i class="fas fa-check check"></i></td>
+                        <td><i class="fas fa-times cross"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Enterprise Security</td>
+                        <td><i class="fas fa-check check"></i></td>
+                        <td><i class="fas fa-check check"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Customizable Detection</td>
+                        <td><i class="fas fa-check check"></i></td>
+                        <td><i class="fas fa-times cross"></i></td>
+                    </tr>
+                    <tr>
+                        <td>API Integration</td>
+                        <td><i class="fas fa-check check"></i></td>
+                        <td><i class="fas fa-check check"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Feature CTA -->
+<section class="feature-cta">
+    <div class="container">
+        <h2>Ready to Transform Your Content Moderation?</h2>
+        <p>Experience the power of enterprise-grade cyberbullying detection with our advanced AI technology.</p>
+        <a href="/detect" class="btn btn-feature-cta">Start Free Analysis</a>
+    </div>
+</section>
+{% endblock %} 

@@ -1,0 +1,470 @@
+{% extends "base.html" %}
+
+{% block title %}About CyberGuard - Enterprise Cyberbullying Detection{% endblock %}
+
+{% block additional_styles %}
+/* About Page Styles */
+.about-hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    padding: 8rem 0 6rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
+    opacity: 0.1;
+}
+
+.about-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.about-hero p {
+    font-size: 1.25rem;
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0.9;
+    line-height: 1.8;
+}
+
+/* Project Overview Section */
+.project-overview {
+    padding: 6rem 0;
+    background-color: white;
+}
+
+.overview-card {
+    background: var(--gray-100);
+    border-radius: 12px;
+    padding: 2rem;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.overview-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.overview-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-color);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: white;
+    font-size: 1.5rem;
+}
+
+/* Project Details Section */
+.project-details {
+    padding: 6rem 0;
+    background-color: var(--gray-100);
+}
+
+.detail-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.detail-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.detail-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: white;
+    font-size: 1.25rem;
+}
+
+.detail-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.detail-text {
+    color: var(--gray-400);
+    line-height: 1.8;
+}
+
+/* Technical Implementation Section */
+.technical-details {
+    padding: 6rem 0;
+    background-color: white;
+}
+
+.tech-card {
+    background: var(--gray-100);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+
+.tech-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.tech-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: white;
+    font-size: 1.25rem;
+}
+
+.tech-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tech-list li {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--gray-400);
+}
+
+.tech-list li::before {
+    content: '•';
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
+}
+
+/* Project Impact Section */
+.project-impact {
+    padding: 6rem 0;
+    background-color: var(--gray-100);
+}
+
+.impact-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.impact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.impact-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: white;
+    font-size: 1.25rem;
+}
+
+.impact-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.impact-text {
+    color: var(--gray-400);
+    line-height: 1.8;
+}
+
+/* Future Roadmap Section */
+.future-roadmap {
+    padding: 6rem 0;
+    background-color: white;
+}
+
+.roadmap-card {
+    background: var(--gray-100);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+
+.roadmap-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.roadmap-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: white;
+    font-size: 1.25rem;
+}
+
+.roadmap-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.roadmap-list li {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--gray-400);
+}
+
+.roadmap-list li::before {
+    content: '•';
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
+}
+
+@media (max-width: 991.98px) {
+    .about-hero h1 {
+        font-size: 2.5rem;
+    }
+}
+{% endblock %}
+
+{% block content %}
+<!-- About Hero Section -->
+<section class="about-hero">
+    <div class="container">
+        <h1>About CyberGuard</h1>
+        <p>Discover how our advanced AI-powered system is revolutionizing cyberbullying detection in Bhojpuri text</p>
+    </div>
+</section>
+
+<!-- Project Overview Section -->
+<section class="project-overview">
+    <div class="container">
+        <h2 class="text-center mb-5">Project Overview</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="overview-card">
+                    <div class="overview-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI-Powered Detection</h3>
+                    <p>Utilizing state-of-the-art machine learning algorithms to identify cyberbullying patterns in Bhojpuri text with high accuracy.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="overview-card">
+                    <div class="overview-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3>Bhojpuri Language Support</h3>
+                    <p>Specialized model trained on Bhojpuri text data to understand cultural context and linguistic nuances.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="overview-card">
+                    <div class="overview-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Enterprise Security</h3>
+                    <p>Built with enterprise-grade security features to protect sensitive data and ensure reliable performance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Details Section -->
+<section class="project-details">
+    <div class="container">
+        <h2 class="text-center mb-5">Project Details</h2>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3 class="detail-title">Project Background</h3>
+                    <p class="detail-text">CyberGuard was developed to address the growing challenge of cyberbullying in Bhojpuri-speaking regions. With the increasing use of social media and digital communication platforms, there was a critical need for automated detection systems that could understand and identify harmful content in Bhojpuri text.</p>
+                    <p class="detail-text">Our team of researchers and developers collaborated with language experts to create a comprehensive solution that combines machine learning with linguistic knowledge to provide accurate and reliable cyberbullying detection.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="detail-title">Dataset & Training</h3>
+                    <p class="detail-text">The model was trained on a carefully curated dataset of over 10,000 Bhojpuri text samples, including both cyberbullying and non-cyberbullying content. The dataset was annotated by native Bhojpuri speakers with expertise in identifying harmful content.</p>
+                    <p class="detail-text">We employed a rigorous data collection and validation process to ensure the quality and representativeness of our training data, including various forms of cyberbullying such as harassment, hate speech, and personal attacks.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Technical Implementation Section -->
+<section class="technical-details">
+    <div class="container">
+        <h2 class="text-center mb-5">Technical Implementation</h2>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Data Processing</h3>
+                    <ul class="tech-list">
+                        <li>Text cleaning and normalization for Bhojpuri language</li>
+                        <li>TF-IDF vectorization with optimized parameters</li>
+                        <li>Feature selection using chi-square test</li>
+                        <li>Cross-validation with 5-fold stratified sampling</li>
+                        <li>Handling of class imbalance using SMOTE technique</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Model Training</h3>
+                    <ul class="tech-list">
+                        <li>Logistic Regression with L2 regularization</li>
+                        <li>Hyperparameter tuning using GridSearchCV</li>
+                        <li>Model persistence using joblib</li>
+                        <li>Regular model updates and retraining</li>
+                        <li>Performance monitoring and drift detection</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Impact Section -->
+<section class="project-impact">
+    <div class="container">
+        <h2 class="text-center mb-5">Project Impact</h2>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="impact-card">
+                    <div class="impact-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="impact-title">Performance Metrics</h3>
+                    <p class="impact-text">Our model achieved impressive results across various evaluation metrics:</p>
+                    <ul class="tech-list">
+                        <li>Accuracy: 95% on test data</li>
+                        <li>Precision: 0.94 for cyberbullying detection</li>
+                        <li>Recall: 0.91 for identifying harmful content</li>
+                        <li>F1 Score: 0.92 overall performance</li>
+                        <li>ROC AUC: 0.96 indicating excellent discrimination</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="impact-card">
+                    <div class="impact-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="impact-title">Real-World Applications</h3>
+                    <p class="impact-text">CyberGuard has been successfully deployed in various contexts:</p>
+                    <ul class="tech-list">
+                        <li>Social media platforms for content moderation</li>
+                        <li>Educational institutions for student protection</li>
+                        <li>Online communities for maintaining safe environments</li>
+                        <li>Government agencies for monitoring public discourse</li>
+                        <li>NGOs working on digital safety initiatives</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Future Roadmap Section -->
+<section class="future-roadmap">
+    <div class="container">
+        <h2 class="text-center mb-5">Future Roadmap</h2>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="roadmap-card">
+                    <div class="roadmap-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Planned Enhancements</h3>
+                    <ul class="roadmap-list">
+                        <li>Integration with deep learning models for improved accuracy</li>
+                        <li>Support for additional Indian languages</li>
+                        <li>Real-time detection capabilities</li>
+                        <li>API development for third-party integration</li>
+                        <li>Mobile application for on-the-go detection</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="roadmap-card">
+                    <div class="roadmap-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Research Directions</h3>
+                    <ul class="roadmap-list">
+                        <li>Advanced NLP techniques for context understanding</li>
+                        <li>Multimodal analysis combining text and images</li>
+                        <li>Federated learning for privacy-preserving model updates</li>
+                        <li>Explainable AI for transparent decision-making</li>
+                        <li>Cross-cultural adaptation for global deployment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 
